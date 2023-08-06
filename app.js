@@ -20,16 +20,18 @@ app.get("/", (req, res, next) => {
       console.log(err);
     }
     res.send(
-      `${data}<form action="/" onsubmit="document.getElementById('username').value=localStorage.getItem('username')" method = "POST"><input type="hidden" name="username" id="username"><input type="text" name="message" /><br><input type= "submit" value='SEND' /><form>`
+      `${data}<br><form action="/" onsubmit="document.getElementById('username').value=localStorage.getItem('username')" method = "POST"><input type="hidden" name="username" id="username"><input type="text" name="message" /><br><input type= "submit" value='SEND' /><form>`
     );
   });
 });
 
 app.post("/", (req, res, next) => {
-  console.log(req.body.username, req.body.message);
+  //   console.log(req.body.username, req.body.message);
   fs.appendFile(
     "message.txt",
-    `${req.body.username}: ${req.body.message} `,
+    `${req.body.username}: ${
+      req.body.message == undefined ? "Hello" : req.body.message
+    } `,
     (err) => {
       if (err) console.log(err);
     }
